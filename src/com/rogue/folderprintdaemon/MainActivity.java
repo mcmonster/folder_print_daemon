@@ -1,16 +1,26 @@
 package com.rogue.folderprintdaemon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
+	private static MainActivity instance = null;
+	
+	public static MainActivity getInstance() { return instance; }
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		instance = this;
+		
+		FolderMonitor folderMonitor = new FolderMonitor("/storage/sdcard0/PartyPhotoBooth");
+		folderMonitor.startWatching();
 	}
 
 	@Override
